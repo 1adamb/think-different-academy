@@ -1,13 +1,13 @@
 exposedPort: 80
 containers:
   - name: web
-    image: registry.tourde.cloud/<slug>/web
+    image: registry.tourde.cloud/ad_victoriam_fanclubsgc/web
     port: 3000
     env:
       PORT: "3000"
       VITE_API_URL: "/api"
   - name: server
-    image: registry.tourde.cloud/<slug>/server
+    image: registry.tourde.cloud/ad_victoriam_fanclubsgc/server
     port: 3001
     env:
       DATABASE_URL: mysql://tda_user:strongPassword%3F@127.0.0.1:3306/product
@@ -20,7 +20,7 @@ containers:
       MYSQL_ROOT_PASSWORD: password
     port: 3306
   - name: caddy
-    image: registry.tourde.cloud/<slug>/caddy
+    image: registry.tourde.cloud/ad_victoriam_fanclubsgc/caddy
     port: 80
 build:
   - name: web

@@ -10,7 +10,7 @@ containers:
     image: registry.tourde.cloud/ad_victoriam_fanclubsgc/server
     port: 3001
     env:
-      DATABASE_URL: mysql://tda_user:strongPassword%3F@127.0.0.1:3306/product
+      DATABASE_URL: mysql://root:password%3F@127.0.0.1:3306/product
       PORT: "3001"
   - name: mysql
     image: mysql

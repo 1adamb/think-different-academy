@@ -1,11 +1,13 @@
 import { useState, useEffect } from "react";
-import { getProducts, createProduct, updateProduct, deleteProduct } from "./api";
+import { getHealthStatus, getProducts, createProduct, updateProduct, deleteProduct } from "./api";
 import ProductForm from "./ProductForm";
 import ProductTable from "./ProductTable";
 
 export default function App() {
   const [products, setProducts] = useState([]);
   const [editingProduct, setEditingProduct] = useState(null);
+
+  const [healthStatus, setHealthStatus] = useState("")
 
   async function loadProducts() {
     try {
@@ -16,8 +18,25 @@ export default function App() {
     }
   }
 
+  async function loadHealthStatus(){
+    try {
+      const data = await getHealthStatus();
+      if (data.status == "ok"){
+        setHealthStatus("OK");
+      }
+      else{
+        setHealthStatus("je tu chyba... AJÉJE!");
+      } 
+    } catch (e) {
+      console.error("Failed to load healthStatus:", e);
+      setHealthStatus("je tu chyba... AJÉJE!");
+    }
+  }
+
   useEffect(() => {
     loadProducts();
+    loadHealthStatus();
+
   }, []);
 
   async function handleCreate(product) {
@@ -38,8 +57,9 @@ export default function App() {
 
   return (
     <div>
+      
       <h1>Think different Academy</h1>
-
+      <p>Status: {healthStatus}</p>
       <ProductForm
         onSubmit={editingProduct ? (p) => handleUpdate(editingProduct.id, p) : handleCreate}
         initial={editingProduct}

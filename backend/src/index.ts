@@ -39,6 +39,16 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
+
+//tady něco píšu ↓↓↓↓↓
+app.get("/api/v1/health", async (_req, res) => {
+  res.status(200).json({ status: "ok" });
+});
+
+
+
+//tady něco píšu ^^^^^^
+
 app.get("/api/product", async (_req, res) => {
   const [products] = await db.query<Product[]>("SELECT id, name, cost FROM product ORDER BY id");
   res.json(products);

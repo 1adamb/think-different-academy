@@ -1,5 +1,13 @@
 const API_URL = import.meta.env.VITE_API_URL ?? "http://localhost:3001/api";
 
+
+
+export async function getHealthStatus(){
+  const res = await fetch(`${API_URL}/v1/health`);
+  return res.json();
+}
+
+
 export async function getProducts() {
   const res = await fetch(`${API_URL}/product`);
   return res.json();

@@ -1,7 +1,7 @@
 import cors from "cors";
 import express from "express";
 import mysql from "mysql2/promise";
-import type { ResultSetHeader, RowDataPacket } from "mysql2/promise";
+import { RowDataPacket, type ResultSetHeader } from "mysql2/promise";
 
 interface Product extends RowDataPacket {
   id: number;
@@ -41,9 +41,42 @@ app.use(express.json());
 
 
 //tady něco píšu ↓↓↓↓↓
+
+//endpoint pro health
 app.get("/api/v1/health", async (_req, res) => {
   res.status(200).json({ status: "ok" });
 });
+
+//vykraftíme tabulku
+await db.query(`CREATE TABLE IF NOT EXISTS team_info (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  team_name VARCHAR(255) NOT NULL,
+  members VARCHAR(255) INT NOT NULL
+  )`);
+
+//zjistíme jestli v té tabulce už něco je
+const [existing] = await db.query<Product[]>("SELECT id FROM team_info");
+
+//pokud je tabulka prázdná tak tam vložíme naše data
+if (existing.length === 0){
+  await db.execute(
+    "INSERT INTO team_info (team_name, members) VALUES (?, ?)",
+    [
+      "Ad victoriam_-_EJDŮKÁCÝJŐN_-_asdfgytdhcxg_-_&baggřistický pařez_-_#fandklubSCG",
+      "Skibidi Pavel, já, Luky Selba"
+    ]
+  );
+}
+
+
+//endpoint pro tabulku team_info
+app.get("/api/v1/team", async (_req, res) => {
+  //první řádek z tabulky
+  const [rows] = await db.query<RowDataPacket[]>("SELECT team_name, members FROM team_info LIMIT 1");
+  
+  res.json(rows[0]);
+});
+
 
 
 

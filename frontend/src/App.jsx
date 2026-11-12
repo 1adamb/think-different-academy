@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { getHealthStatus, getProducts, createProduct, updateProduct, deleteProduct } from "./api";
+import { getHealthStatus, getProducts, createProduct, updateProduct, deleteProduct, getTeamInfo } from "./api";
 import ProductForm from "./ProductForm";
 import ProductTable from "./ProductTable";
 
@@ -9,6 +9,8 @@ export default function App() {
 
   const [healthStatus, setHealthStatus] = useState("")
 
+  const [teamInfo, setTeamInfo] = useState(null);
+
   async function loadProducts() {
     try {
       const data = await getProducts();
@@ -17,6 +19,8 @@ export default function App() {
       console.error("Failed to load products:", e);
     }
   }
+
+  //tady něco píšu ↓↓↓↓↓↓
 
   async function loadHealthStatus(){
     try {
@@ -33,9 +37,21 @@ export default function App() {
     }
   }
 
+
+  async function loadTeamInfo(){
+    try {
+      const data = await getTeamInfo();
+      setTeamInfo(data);
+    } catch (e) {
+      console.error("chyba při načítání týmu", e);
+    }
+  }
+
+// tady něco píšu ^^^^^^^
   useEffect(() => {
     loadProducts();
     loadHealthStatus();
+    loadTeamInfo();
 
   }, []);
 
@@ -60,6 +76,13 @@ export default function App() {
       
       <h1>Think different Academy</h1>
       <p>Status: {healthStatus}</p>
+      {teamInfo && (
+        <p>
+          Team name: {teamInfo.team_name}
+          Team members: {teamInfo.members}
+        </p>
+      )}
+      
       <ProductForm
         onSubmit={editingProduct ? (p) => handleUpdate(editingProduct.id, p) : handleCreate}
         initial={editingProduct}

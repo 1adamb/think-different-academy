@@ -20,6 +20,7 @@ h1 {
   font-weight: 600;
 }
 
+
 table {
   width: 100%;
   border-collapse: collapse;
@@ -96,4 +97,8 @@ button:hover {
 p {
   color: #555;
   font-size: 14px;
+}
+
+p1 {
+  color:#01ff01
 }

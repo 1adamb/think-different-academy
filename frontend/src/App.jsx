@@ -78,8 +78,8 @@ export default function App() {
       <p>Status: {healthStatus}</p>
       {teamInfo && (
         <div>
-          <p> Team name: {teamInfo.team_name}</p>
-          <p> Team members: {teamInfo.members}</p>
+          <p1> Team name: {teamInfo.team_name}</p1>
+          <p1> Team members: {teamInfo.members}</p1>
         </div>
       )}
       

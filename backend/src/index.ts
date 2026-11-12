@@ -63,7 +63,7 @@ if (existing.length === 0){
     "INSERT INTO team_info (team_name, members) VALUES (?, ?)",
     [
       "Ad victoriam_-_EJDŮKÁCÝJŐN_-_asdfgytdhcxg_-_&baggřistický pařez_-_#fandklubSCG",
-      "Skibidi Pavel, já, Luky Selba"
+      "Řezáč Pavel, Bělobrádek Adam, Zelba Lukáš"
     ]
   );
 }

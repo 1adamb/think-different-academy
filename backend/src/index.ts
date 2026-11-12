@@ -51,7 +51,7 @@ app.get("/api/v1/health", async (_req, res) => {
 await db.query(`CREATE TABLE IF NOT EXISTS team_info (
   id INT AUTO_INCREMENT PRIMARY KEY,
   team_name VARCHAR(255) NOT NULL,
-  members VARCHAR(255) INT NOT NULL
+  members VARCHAR(255) NOT NULL
   )`);
 
 //zjistíme jestli v té tabulce už něco je

@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { getHealthStatus,getTeamInfo, getProducts, createProduct, updateProduct, deleteProduct, getTeamInfo } from "./api";
+import { getHealthStatus, getTeamInfo, getProducts, createProduct, updateProduct, deleteProduct } from "./api";
 import ProductForm from "./ProductForm";
 import ProductTable from "./ProductTable";
 

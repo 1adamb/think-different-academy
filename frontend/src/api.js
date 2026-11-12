@@ -14,7 +14,7 @@ export async function getTeamInfo(){
 }
 
 
-//tady něco píšu ^^^^^^^
+//tady něco píšu ^^^^^^^^^^
 
 export async function getProducts() {
   const res = await fetch(`${API_URL}/product`);

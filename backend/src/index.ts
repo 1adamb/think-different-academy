@@ -1,7 +1,7 @@
 import cors from "cors";
 import express from "express";
 import mysql from "mysql2/promise";
-import { RowDataPacket, type ResultSetHeader } from "mysql2/promise";
+import type { ResultSetHeader, RowDataPacket } from "mysql2/promise";
 
 interface Product extends RowDataPacket {
   id: number;

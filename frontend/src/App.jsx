@@ -77,10 +77,10 @@ export default function App() {
       <h1>Think different Academy</h1>
       <p>Status: {healthStatus}</p>
       {teamInfo && (
-        <p>
-          Team name: {teamInfo.team_name}
-          Team members: {teamInfo.members}
-        </p>
+        <div>
+          <p> Team name: {teamInfo.team_name}</p>
+          <p> Team members: {teamInfo.members}</p>
+        </div>
       )}
       
       <ProductForm

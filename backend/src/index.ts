@@ -20,6 +20,39 @@ for (let attempt = 1; ; attempt++) {
       name VARCHAR(100) NOT NULL,
       cost INT NOT NULL
     )`);
+    await db.query(`CREATE TABLE IF NOT EXISTS team_info (
+      id INT AUTO_INCREMENT PRIMARY KEY,
+      team_name VARCHAR(255) NOT NULL,
+      members VARCHAR(255) NOT NULL
+    )`);
+
+    //zjistíme jestli v té tabulce už něco je
+    const [existing] = await db.query<Product[]>("SELECT id FROM team_info");
+    //pokud je tabulka prázdná tak tam vložíme naše data
+    if (existing.length === 0){
+      await db.execute(
+        "INSERT INTO team_info (team_name, members) VALUES (?, ?)",
+        [
+          "Ad victoriam_-_EJDŮKÁCÝJŐN_-_asdfgytdhcxg_-_&baggřistický pařez_-_#fandklubSCG",
+          "Řezáč Pavel, Bělobrádek Adam, Zelba Lukáš"
+        ]
+      );
+    }
+
+    await db.query(`CREATE TABLE IF NOT EXISTS bus_stop (
+      id INT AUTO_INCREMENT PRIMARY KEY,
+      name VARCHAR(255) NOT NULL,
+    image_url VARCHAR(255) DEFAULT NULL,
+    is_transfer BOOLEAN NOT NULL DEFAULT FALSE,
+    x DOUBLE NOT NULL DEFAULT 0,
+    y DOUBLE NOT NULL DEFAULT 0,
+    wheelchair_accessible BOOLEAN NOT NULL DEFAULT FALSE,
+    has_shelter BOOLEAN NOT NULL DEFAULT FALSE,
+    has_bench BOOLEAN NOT NULL DEFAULT FALSE,
+    has_ticket_machine BOOLEAN NOT NULL DEFAULT FALSE,
+    has_display BOOLEAN NOT NULL DEFAULT FALSE
+    )`);
+
     break;
   } catch (error) {
     if (attempt === 60) throw error;
@@ -47,26 +80,10 @@ app.get("/api/v1/health", async (_req, res) => {
   res.status(200).json({ status: "ok" });
 });
 
-//vykraftíme tabulku
-await db.query(`CREATE TABLE IF NOT EXISTS team_info (
-  id INT AUTO_INCREMENT PRIMARY KEY,
-  team_name VARCHAR(255) NOT NULL,
-  members VARCHAR(255) NOT NULL
-  )`);
 
-//zjistíme jestli v té tabulce už něco je
-const [existing] = await db.query<Product[]>("SELECT id FROM team_info");
 
-//pokud je tabulka prázdná tak tam vložíme naše data
-if (existing.length === 0){
-  await db.execute(
-    "INSERT INTO team_info (team_name, members) VALUES (?, ?)",
-    [
-      "Ad victoriam_-_EJDŮKÁCÝJŐN_-_asdfgytdhcxg_-_&baggřistický pařez_-_#fandklubSCG",
-      "Řezáč Pavel, Bělobrádek Adam, Zelba Lukáš"
-    ]
-  );
-}
+
+
 
 
 //endpoint pro tabulku team_info
